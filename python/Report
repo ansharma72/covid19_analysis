@@ -7,7 +7,8 @@
 Content to be included (To be removed)
     Learning Outcomes assessed:
         1) Real World Scenario:
-            Visualize the spread of Covid_19 across the globe. Measure the impact over a period of time and visualize hotspots
+            Visualize the spread of Covid_19 across the globe. Measure the impact of Covid globally across the world
+            over a period of time and visualize hotspots in USA and Ireland.
         2) Importing data
                 • Your project should make use of one or more of the following, [1]
                     • Relational Database or API or Web Scraping
@@ -25,7 +26,8 @@ Content to be included (To be removed)
             • Dictionary or Lists. [1]
 
         5) Visualize
-            • Seaborn, Matplotlib [2]
+            • Matplotlib
+            • Seaborn
 
         6) Generate Valuable Insights
             • 5 insights from the visualization. [2]
@@ -39,7 +41,7 @@ Github repository : <Location>
     Put the location of github repository for the source and analytics
 
 Process :
-    Gathering the data - Importing data from ....
+    Gathering the data from WHO, John hopkins institute and Ireland   - Importing data from ....
     Analysing the data for key trends or patterns
     Result
 
