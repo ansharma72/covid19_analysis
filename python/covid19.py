@@ -204,12 +204,22 @@ ireland_infected = raw_confirmed[raw_confirmed['Country/Region'] == 'Ireland']
 ireland_death = raw_deaths[raw_deaths['Country/Region'] == 'Ireland']
 ireland_last_day = ireland_infected.iloc[:, -1].name
 
-uk_fig = px.scatter_mapbox(ireland_infected, lat=ireland_infected.Lat, lon=ireland_infected.Long,
+ireland_fig= px.scatter_mapbox(ireland_infected, lat=ireland_infected.Lat, lon=ireland_infected.Long,
                            color=ireland_last_day,
                            size=ireland_last_day, hover_name='Country/Region', zoom=8,
                            mapbox_style='open-street-map', title='Confirmed cases Covid-19 Ireland map.')
-uk_fig.show()
+ireland_fig.show()
 
 # Insight 5
 # Load data for individual region and show the spread across regions
 # Load data from ireland specific site
+ireland_covid_cases = pd.read_csv('../data/Covid19CountyStatisticsHPSCIrelandOpenData.csv')
+ireland_fig_detailed = px.scatter_mapbox(ireland_covid_cases, lat=ireland_covid_cases.Lat, lon=ireland_covid_cases.Long,
+                           color=ireland_covid_cases.PopulationProportionCovidCases,
+                           size=ireland_covid_cases.ConfirmedCovidCases, hover_name='CountyName', zoom=6,
+                           hover_data=['ConfirmedCovidCases',
+                                        'PopulationProportionCovidCases',
+                                        'TimeStampDate'
+                                      ],
+                           mapbox_style='open-street-map', title='Covid Covid-19 Ireland map - detailed.')
+ireland_fig_detailed.show()
