@@ -170,21 +170,35 @@ ireland["deaths"].plot(y='deaths', title='Covid-19 deaths in Ireland', ax=ax2)
 plt.show()
 
 # Insight 3 -
-fig, axes = plt.subplots(2, 2, sharex=True, figsize=(10, 10))
+fig, axes = plt.subplots(2, 1, sharex=True, figsize=(10, 10))
+#sns.set_theme(style="darkgrid")
 
 fig.suptitle('Infection and death rates')
-axes[0][0].set_title('Ireland Covid Infection')
-sns.distplot(x=ireland["confirmed"], fit=stats.gamma, axlabel="Infection rate", label="Infection distribution",
-             ax=axes[0][0])
-axes[0][1].set_title("Ireland Covid Deaths")
-sns.boxplot(ax=axes[0][1], x=ireland["deaths"])
+axes[0].set_title('Ireland Covid Infection')
+sns.distplot(x=ireland["confirmed"], fit=stats.gamma, axlabel="Infection rate", label="Infection distribution", ax=axes[0])
+#sns.displot(x=ireland.index, y=ireland["confirmed"],  label="Infection distribution", ax=axes[0][0])
+axes[1].set_title("Ireland Covid Deaths")
+axes[0].set(xlim=(0, 50000))
+axes[1].set(xlim=(0, 50000))
 
-axes[1][0].set_title('US Covid Infection')
-sns.distplot(x=us["confirmed"], fit=stats.gamma, axlabel="Infection rate", label="Infection distribution",
-             ax=axes[1][0])
-axes[1][1].set_title("US Covid Deaths")
-sns.boxplot(ax=axes[1][1], x=us["deaths"])
+#axes[0][0].set(xlim=(0, 50000), ylim=(0, 5), xticks = [0, 2.5, 5], yticks = [0, 2.5, 5])
+#axes[0][1].set(xlim=(0, 50000), ylim=(0, 5), xticks = [0, 2.5, 5], yticks = [0, 2.5, 5])
 
+#plt.xticks(rotation=45)
+sns.boxplot(ax=axes[1], x=ireland["deaths"])
+plt.show()
+
+# Plot the responses for different events and regions
+#sns.lineplot(x=ireland.index, y="confirmed",  data=ireland, ax=axes[0][1])
+#hue="region", style="event"
+fig, axes = plt.subplots(2, 1, sharex=True, figsize=(10, 10))
+axes[0].set_title('US Covid Infection')
+sns.distplot(x=us["confirmed"], fit=stats.gamma, axlabel="Infection rate", label="Infection distribution", ax=axes[0])
+#sns.displot(x=us["confirmed"],  label="Infection distribution", ax=axes[1][0])
+axes[1].set_title("US Covid Deaths")
+sns.boxplot(ax=axes[1], x=us["deaths"])
+axes[0].set(xlim=(0, 1000000))
+axes[1].set(xlim=(0, 1000000))
 plt.show()
 # fig, (ax[1][0], ax[1][0], ax[0][0], ax[0][0]) =plt.subplots(nrows=2, ncols=2, figsize=(18,12))
 # plt.subplots_adjust(hspace=0.4, top=0.8)
@@ -214,6 +228,15 @@ ireland_fig.show()
 # Load data for individual region and show the spread across regions
 # Load data from ireland specific site
 ireland_covid_cases = pd.read_csv('../data/Covid19CountyStatisticsHPSCIrelandOpenData.csv')
+
+# Show a bar plot to compare the confirmed COVID cases per county
+sns.barplot(ireland_covid_cases.CountyName,ireland_covid_cases.ConfirmedCovidCases)
+plt.show()
+
+# Show a scatter plot to compare the confirmed COVID by population proprtions
+sns.barplot(ireland_covid_cases.CountyName,ireland_covid_cases.PopulationProportionCovidCases)
+plt.show()
+
 ireland_fig_detailed = px.scatter_mapbox(ireland_covid_cases, lat=ireland_covid_cases.Lat, lon=ireland_covid_cases.Long,
                            color=ireland_covid_cases.PopulationProportionCovidCases,
                            size=ireland_covid_cases.ConfirmedCovidCases, hover_name='CountyName', zoom=6,
